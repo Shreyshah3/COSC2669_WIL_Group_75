@@ -1,56 +1,49 @@
-# Walert - A Conversational Agent
+# 🏦 Banking PDF RAG Chatbot
 
-We built Walert, a conversational agent that answers FAQs about programs of study that are offered in the School of Computing Technologies at RMIT University. This intent-based approach, deployed in Amazon Echo device, was showcased as a demo at RMIT University’s Open Day in August 2023.
+A local Retrieval-Augmented Generation (RAG) chatbot that answers banking-related questions using a banking FAQ PDF as its knowledge source.
 
-Teaser Video: https://drive.google.com/file/d/1Z2ZRveFYlX96v4ncq4RL-gzNbOlCJYGL/view?usp=sharing
+The project uses Ollama for local language generation and embeddings, LangChain for the RAG pipeline, ChromaDB for vector storage, and Streamlit for the chatbot interface.
 
-Amazon Echo Demo Link: https://bit.ly/chiir24walertdemovideo
+---
 
-Demo Video Link (Intent-Based version deployed on Amazon Echo Device): https://bit.ly/WalertIntentDemo
+## 📌 Project Overview
 
-Demo Video Link (Retrieval Augmented Generation based version): https://bit.ly/WalertRAGDemo
+The goal of this project is to build a chatbot that can retrieve relevant information from a banking FAQ document and use that information to generate an answer.
 
-You can view our poster presented at CHIIR24:  [Walert Poster](https://github.com/sachinpc1993/walert/blob/main/Poster.pdf) 
+Instead of allowing the language model to answer freely, the chatbot first searches the banking FAQ knowledge base and provides the retrieved information to the language model.
 
-![Overall Architecture](OVERALL_ARCHITECTURE.PNG)
+This helps keep the responses grounded in the provided banking information.
 
-Note: This repository contains all utility code for 'Behind The Scenes' of Walert.
+---
 
-You will find in **quantitative_eval** folder all the required codes and files to rerun the experiments in the paper. 
+## RAG Architecture
 
-# Evaluation Results
-NDCG for Known and Inferred Questions
-![NDCG](Evaluation_results/1.png)
-
-% of unanswered out-of-knowledge-base questions 
-![unanswere](Evaluation_results/2.png)
-
-BERTScore
-![BERTScore](Evaluation_results/3.png)
-
-
-ROUGE-1
-![ROUGE](Evaluation_results/4.png)
-
-
-
-# Citation
-If you use or reference this work, please cite it as follows:
-```
-@inproceedings{10.1145/3627508.3638309,
-author = {Pathiyan Cherumanal, Sachin and Tian, Lin and Abushaqra, Futoon M. and Magnoss\~{a}o de Paula, Angel Felipe and Ji, Kaixin and Ali, Halil and Hettiachchi, Danula and Trippas, Johanne R. and Scholer, Falk and Spina, Damiano},
-title = {Walert: Putting Conversational Information Seeking Knowledge into Action by Building and Evaluating a Large Language Model-Powered Chatbot},
-year = {2024},
-isbn = {9798400704345},
-publisher = {Association for Computing Machinery},
-address = {New York, NY, USA},
-url = {https://doi.org/10.1145/3627508.3638309},
-doi = {10.1145/3627508.3638309},
-booktitle = {Proceedings of the 2024 Conference on Human Information Interaction and Retrieval},
-pages = {401–405},
-numpages = {5},
-keywords = {conversational information seeking, large language models, retrieval-augmented generation},
-location = {<conf-loc>, <city>Sheffield</city>, <country>United Kingdom</country>, </conf-loc>},
-series = {CHIIR '24}
-}
-```
+```text
+Banking FAQ CSV
+       ↓
+Data Cleaning
+       ↓
+Cleaned FAQ Dataset
+       ↓
+PDF Generation
+       ↓
+Banking FAQ PDF
+       ↓
+PDF Text Extraction
+       ↓
+FAQ-aware Document Creation
+       ↓
+Ollama Embeddings
+(nomic-embed-text)
+       ↓
+ChromaDB
+       ↓
+Semantic Retrieval
+       ↓
+Relevant FAQ Context
+       ↓
+Llama 3.2
+       ↓
+Generated Answer
+       ↓
+Streamlit Chatbot
